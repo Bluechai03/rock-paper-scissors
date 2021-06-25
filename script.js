@@ -1,6 +1,16 @@
 const playerWins = "Player wins!";
 const computerWins = "Computer wins!";
 
+// Write a function to enter player's selection
+function playerPlay() {
+  let playerSelection = prompt("Enter a shape: ");
+  if (playerSelection === "ROCK" || "PAPER" || "SCISSORS") {
+    return playerSelection;
+  } else {
+    return null;
+  }
+}
+
 // Write a function that randomly returns rock, paper, scissors as the computer's selection.
 function computerPlay() {
   // Return rock, paper or scissors
@@ -33,7 +43,7 @@ function playRound(playerSelection, computerSelection) {
       console.log("Paper beats rock.");
       return playerWins;
     } else if (computerSelection.toUpperCase() === "SCISSORS") {
-      console.log("Scissors beat rock.");
+      console.log("Scissors beat paper.");
       return computerWins;
     }
   }
@@ -61,7 +71,7 @@ function game() {
   let playerPoints = 0,
     computerPoints = 0;
   for (let i = 0; i < 5; i++) {
-    let playerSelection = prompt("Enter rock, paper or scissors: ");
+    let playerSelection = playerPlay();
     let computerSelection = computerPlay();
 
     let roundWinner = playRound(playerSelection, computerSelection);
@@ -78,7 +88,7 @@ function game() {
         console.log("It's a tie!");
         break;
       default:
-        consolelog("There has been an error :(");
+        console.log("There was an error :(");
     }
   }
   console.log(`Player's points: ${playerPoints}`);
