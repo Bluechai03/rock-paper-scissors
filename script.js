@@ -1,3 +1,6 @@
+const playerWins = "Player wins!";
+const computerWins = "Computer wins!";
+
 // Write a function that randomly returns rock, paper, scissors as the computer's selection.
 function computerPlay() {
   // Return rock, paper or scissors
@@ -8,31 +11,46 @@ function computerPlay() {
 // Write a function that takes the player's and computer's selection as parameters.
 // calculate the winner and return a string that declares the winner.
 function playRound(playerSelection, computerSelection) {
-  // Winner is player
   console.log(`Player's hand: ${playerSelection.toUpperCase()}`);
   console.log(`Computer's hand: ${computerSelection.toUpperCase()}`);
 
-  if (
-    (playerSelection.toUpperCase() === "ROCK" &&
-      computerSelection.toUpperCase() === "SCISSORS") ||
-    (playerSelection.toUpperCase() === "PAPER" &&
-      computerSelection.toUpperCase() === "ROCK") ||
-    (playerSelection.toUpperCase() === "SCISSORS" &&
-      computerSelection.toUpperCase() === "PAPER")
-  ) {
-    return "Player wins!";
-  } else if (
-    (computerSelection.toUpperCase() === "ROCK" &&
-      playerSelection.toUpperCase() === "SCISSORS") ||
-    (computerSelection.toUpperCase() === "PAPER" &&
-      playerSelection.toUpperCase() === "ROCK") ||
-    (computerSelection.toUpperCase() === "SCISSORS" &&
-      playerSelection.toUpperCase() === "PAPER")
-  ) {
-    return "Computer wins!";
-  } else if (
-    playerSelection.toUpperCase() === computerSelection.toUpperCase()
-  ) {
+  //   Conditional statements to check the winner
+
+  //   If player chooses rock
+  if (playerSelection.toUpperCase() === "ROCK") {
+    if (computerSelection.toUpperCase() === "SCISSORS") {
+      console.log("Rock beats scissors.");
+      return playerWins;
+    } else if (computerSelection.toUpperCase() === "PAPER") {
+      console.log("Paper beats rock.");
+      return computerWins;
+    }
+  }
+
+  //   If player chooses paper
+  else if (playerSelection.toUpperCase() === "PAPER") {
+    if (computerSelection.toUpperCase() === "ROCK") {
+      console.log("Paper beats rock.");
+      return playerWins;
+    } else if (computerSelection.toUpperCase() === "SCISSORS") {
+      console.log("Scissors beat rock.");
+      return computerWins;
+    }
+  }
+
+  //   If player chooses scissors
+  else if (playerSelection.toUpperCase() === "SCISSORS") {
+    if (computerSelection.toUpperCase() === "PAPER") {
+      console.log("Scissors beat paper.");
+      return playerWins;
+    } else if (computerSelection.toUpperCase() === "ROCK") {
+      console.log("Rock beats scissors.");
+      return computerWins;
+    }
+  }
+
+  //   If player and computer choose the same shape
+  if (playerSelection.toUpperCase() === computerSelection.toUpperCase()) {
     return "It's a tie!";
   }
 }
@@ -43,8 +61,9 @@ function game() {
   let playerPoints = 0,
     computerPoints = 0;
   for (let i = 0; i < 5; i++) {
-    const playerSelection = prompt("Enter rock, paper or scissors: ");
-    const computerSelection = computerPlay();
+    let playerSelection = prompt("Enter rock, paper or scissors: ");
+    let computerSelection = computerPlay();
+
     let roundWinner = playRound(playerSelection, computerSelection);
     switch (roundWinner) {
       case "Player wins!":
@@ -70,7 +89,5 @@ function game() {
       : `Computer is the final winner with ${computerPoints} points!`
   );
 }
-
-// const playerSelection = prompt("Enter Rock, Paper or Scissors: ");
 
 game();
