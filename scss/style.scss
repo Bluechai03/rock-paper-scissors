@@ -11,11 +11,23 @@ body {
   background-size: cover;
   height: 100vh;
   color: white;
+  width: 90%;
+  max-width: 1280px;
 }
 
-.player--item {
-  img {
+img {
+  max-width: 100%;
+}
+
+.player {
+  &--frame {
+    background: url(../images/frame.png) no-repeat center center;
+    background-size: cover;
+    width: 15vw;
+    height: 15vw;
+  }
+
+  &--item {
     max-width: 5rem;
   }
-  max-width: 5rem;
 }
