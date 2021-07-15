@@ -5,36 +5,73 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock Paper Scissors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Overlock+SC&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <main>
+    <main class="grid">
       <div class="player">
-        <div class="player--frame" id="player--frame">
-          <!-- <img src="images/rock.png" alt="" /> -->
+        <div class="total-score total-score--player">
+          <img class="score score--player" src="images/heart.png" alt="" />
+          <img class="score score--player" src="images/heart.png" alt="" />
+          <img class="score score--player" src="images/heart.png" alt="" />
+          <img class="score score--player" src="images/heart.png" alt="" />
+          <img class="score score--player" src="images/heart.png" alt="" />
         </div>
-        <button class="player--item" id="btn--rock">
-          <img src="images/rock.png" alt="" />
-          Rock
-        </button>
-        <button class="player--item" id="btn--wool">
-          <img src="images/wool.png" alt="" />
-          Wool
-        </button>
-        <button class="player--item" id="btn--shears">
-          <img src="images/shears.png" alt="" />
-          Shears
-        </button>
-      </div>
-      <br />
-      <button id="btn--play-round">Play Round</button>
+        <div class="frame frame--player" id="player--frame">
+          <img src="images/frame.png" alt="" style="visibility: collapse" />
+        </div>
+        <div class="items items--player">
+          <button class="items__btn items__btn--player" id="btn--rock">
+            <img src="images/rock.png" alt="" />
+          </button>
 
-      <div id="player--score">Player's Score: 0</div>
-      <div id="computer--score">Computer's Score: 0</div>
-      <div id="player--selection"></div>
-      <div id="computer--selection"></div>
-      <div id="result"></div>
-      <div id="round-winner"></div>
+          <button class="items__btn items__btn--player" id="btn--wool">
+            <img src="images/wool.png" alt="" />
+          </button>
+          <button class="items__btn items__btn--player" id="btn--shears">
+            <img src="images/shears.png" alt="" />
+          </button>
+        </div>
+      </div>
+      <div class="round-status">
+        <button class="btn" id="btn--play-round">Play Round</button>
+        <div id="player--score">Player's Score: 0</div>
+        <div id="computer--score">Computer's Score: 0</div>
+        <div id="player--selection"></div>
+        <div id="computer--selection"></div>
+        <div id="result"></div>
+        <div id="round-winner"></div>
+      </div>
+      <div class="computer">
+        <div class="total-score total-score--computer">
+          <img class="score score--computer" src="images/heart.png" alt="" />
+          <img class="score score--computer" src="images/heart.png" alt="" />
+          <img class="score score--computer" src="images/heart.png" alt="" />
+          <img class="score score--computer" src="images/heart.png" alt="" />
+          <img class="score score--computer" src="images/heart.png" alt="" />
+        </div>
+        <div class="frame frame--computer" id="player--frame">
+          <img src="images/frame.png" alt="" style="visibility: collapse" />
+        </div>
+        <div class="items items--computer">
+          <button class="items__btn items__btn--computer">
+            <img src="images/rock.png" alt="" />
+          </button>
+
+          <button class="items__btn items__btn--computer">
+            <img src="images/wool.png" alt="" />
+          </button>
+          <button class="items__btn items__btn--computer">
+            <img src="images/shears.png" alt="" />
+          </button>
+        </div>
+      </div>
     </main>
     <script src="script.js"></script>
   </body>

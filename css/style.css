@@ -4,12 +4,18 @@
   box-sizing: border-box;
 }
 
+.player,
+.computer, .total-score {
+  display: flex;
+  align-items: center;
+}
+
 body {
-  margin: 0;
   padding: 0;
   background: url(../images/background.png) no-repeat center center;
   background-size: cover;
   height: 100vh;
+  margin: 0 auto;
   color: white;
   width: 90%;
   max-width: 1280px;
@@ -19,14 +25,56 @@ img {
   max-width: 100%;
 }
 
-.player--frame {
-  background: url(../images/frame.png) no-repeat center center;
-  background-size: cover;
-  width: 15vw;
-  height: 15vw;
+.btn {
+  font-size: 1.5rem;
+  font-family: 'Overlock SC', cursive;
 }
 
-.player--item {
-  max-width: 5rem;
+.btn:hover {
+  transform: scale(1.1);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
+  place-items: center;
+}
+
+.player,
+.computer {
+  flex-direction: column;
+}
+
+.total-score {
+  justify-content: center;
+  max-width: 4vw;
+}
+
+.total-score--player {
+  transform: scaleX(-1);
+}
+
+.frame {
+  background: url(../images/frame.png) no-repeat center center;
+  background-size: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.items {
+  display: flex;
+}
+
+.items__btn {
+  max-width: 5vw;
+  background: none;
+  border: none;
+  transition: transform 100ms ease-in-out;
+}
+
+.items__btn:hover, .items__btn:focus {
+  transform: scale(1.2);
+  cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */
