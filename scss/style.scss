@@ -10,21 +10,32 @@
 }
 
 body {
+  @extend %center;
   padding: 0;
   background: url(../images/background.png) no-repeat center center;
   background-size: cover;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
   color: white;
   width: 90%;
   max-width: 1280px;
+  text-transform: uppercase;
 }
 
 img {
   max-width: 100%;
 }
 
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
 .btn {
+  margin-top: 0.5rem;
+  padding: 0.125em 1em;
   font-size: 1.5rem;
   font-family: 'Overlock SC', cursive;
   &:hover {
@@ -34,21 +45,31 @@ img {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   place-items: center;
+  align-items: start;
+  gap: 5rem;
+  @media screen and (min-width: 52em) {
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+  }
+  & > * {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 }
 
-.player,
-.computer {
-  @extend %center;
-  flex-direction: column;
+.profile {
+  width: 15rem;
 }
 
 .total-score {
   @extend %center;
   justify-content: center;
-  max-width: 4vw;
-
+  align-self: center;
+  img {
+    width: 100%;
+  }
   &--player {
     transform: scaleX(-1);
   }
@@ -64,17 +85,28 @@ img {
 
 .items {
   display: flex;
-
+  justify-content: space-evenly;
   &__btn {
-    max-width: 5vw;
+    min-width: 1rem;
+    max-width: 5rem;
     background: none;
     border: none;
     transition: transform 100ms ease-in-out;
+    opacity: 0.7;
 
-    &:hover,
-    &:focus {
-      transform: scale(1.2);
-      cursor: pointer;
+    &--player {
+      &:hover,
+      &:focus {
+        transform: scale(1.2);
+        cursor: pointer;
+        opacity: 1;
+      }
     }
   }
+}
+
+.round-stats {
+  flex-flow: column wrap;
+  align-items: center;
+  text-align: center;
 }

@@ -16,60 +16,80 @@
   <body>
     <main class="grid">
       <div class="player">
-        <div class="total-score total-score--player">
-          <img class="score score--player" src="images/heart.png" alt="" />
-          <img class="score score--player" src="images/heart.png" alt="" />
-          <img class="score score--player" src="images/heart.png" alt="" />
-          <img class="score score--player" src="images/heart.png" alt="" />
-          <img class="score score--player" src="images/heart.png" alt="" />
+        <div class="col profile">
+          <img src="images/player.png" alt="" />
         </div>
-        <div class="frame frame--player" id="player--frame">
-          <img src="images/frame.png" alt="" style="visibility: collapse" />
-        </div>
-        <div class="items items--player">
-          <button class="items__btn items__btn--player" id="btn--rock">
-            <img src="images/rock.png" alt="" />
-          </button>
+        <div class="col">
+          <div class="total-score total-score--player">
+            <img class="score score--player" src="images/heart.png" alt="" />
+            <img class="score score--player" src="images/heart.png" alt="" />
+            <img class="score score--player" src="images/heart.png" alt="" />
+            <img class="score score--player" src="images/heart.png" alt="" />
+            <img class="score score--player" src="images/heart.png" alt="" />
+          </div>
+          <div class="frame frame--player" id="player-frame">
+            <img
+              id="hidden-frame--player"
+              class="hidden-frame"
+              src="images/frame.png"
+              alt=""
+              style="visibility: collapse"
+            />
+          </div>
+          <div class="items items--player">
+            <button class="items__btn items__btn--player" id="btn--rock">
+              <img src="images/rock.png" alt="" />
+            </button>
 
-          <button class="items__btn items__btn--player" id="btn--wool">
-            <img src="images/wool.png" alt="" />
-          </button>
-          <button class="items__btn items__btn--player" id="btn--shears">
-            <img src="images/shears.png" alt="" />
-          </button>
+            <button class="items__btn items__btn--player" id="btn--wool">
+              <img src="images/wool.png" alt="" />
+            </button>
+            <button class="items__btn items__btn--player" id="btn--shears">
+              <img src="images/shears.png" alt="" />
+            </button>
+          </div>
         </div>
       </div>
-      <div class="round-status">
+      <div class="round-stats">
+        <h1 class="title" id="round-title">Round 1</h1>
+        <h3>First one to lose all hearts!</h3>
         <button class="btn" id="btn--play-round">Play Round</button>
-        <div id="player--score">Player's Score: 0</div>
-        <div id="computer--score">Computer's Score: 0</div>
-        <div id="player--selection"></div>
-        <div id="computer--selection"></div>
-        <div id="result"></div>
-        <div id="round-winner"></div>
+        <button class="btn" id="btn--next-round">Next Round</button>
+        <h3 id="result"></h3>
+        <div id="round-winner--container"><h1 id="round-winner"></h1></div>
       </div>
       <div class="computer">
-        <div class="total-score total-score--computer">
-          <img class="score score--computer" src="images/heart.png" alt="" />
-          <img class="score score--computer" src="images/heart.png" alt="" />
-          <img class="score score--computer" src="images/heart.png" alt="" />
-          <img class="score score--computer" src="images/heart.png" alt="" />
-          <img class="score score--computer" src="images/heart.png" alt="" />
-        </div>
-        <div class="frame frame--computer" id="player--frame">
-          <img src="images/frame.png" alt="" style="visibility: collapse" />
-        </div>
-        <div class="items items--computer">
-          <button class="items__btn items__btn--computer">
-            <img src="images/rock.png" alt="" />
-          </button>
+        <div class="col">
+          <div class="total-score total-score--computer">
+            <img class="score score--computer" src="images/heart.png" alt="" />
+            <img class="score score--computer" src="images/heart.png" alt="" />
+            <img class="score score--computer" src="images/heart.png" alt="" />
+            <img class="score score--computer" src="images/heart.png" alt="" />
+            <img class="score score--computer" src="images/heart.png" alt="" />
+          </div>
+          <div class="frame frame--computer" id="computer-frame">
+            <img
+              src="images/question-mark.png"
+              alt=""
+              class="hidden-frame"
+              id="question-mark"
+            />
+          </div>
+          <div class="items items--computer" style="visibility: hidden">
+            <button class="items__btn items__btn--player" id="btn--rock">
+              <img src="images/rock.png" alt="" />
+            </button>
 
-          <button class="items__btn items__btn--computer">
-            <img src="images/wool.png" alt="" />
-          </button>
-          <button class="items__btn items__btn--computer">
-            <img src="images/shears.png" alt="" />
-          </button>
+            <button class="items__btn items__btn--player" id="btn--wool">
+              <img src="images/wool.png" alt="" />
+            </button>
+            <button class="items__btn items__btn--player" id="btn--shears">
+              <img src="images/shears.png" alt="" />
+            </button>
+          </div>
+        </div>
+        <div class="col profile">
+          <img src="images/computer.png" alt="" />
         </div>
       </div>
     </main>
