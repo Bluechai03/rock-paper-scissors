@@ -18,7 +18,9 @@ body {
   color: white;
   width: 90%;
   max-width: 1280px;
+  font-family: 'Overlock SC', cursive;
   text-transform: uppercase;
+  text-align: center;
 }
 
 img {
@@ -32,11 +34,13 @@ p {
   margin: 0;
 }
 
+.title {
+  color: black;
+}
+
 .btn {
-  margin-top: 0.5rem;
   padding: 0.125em 1em;
   font-size: 1.5rem;
-  font-family: 'Overlock SC', cursive;
 }
 
 .btn:hover {
@@ -45,10 +49,21 @@ p {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   place-items: center;
   align-items: start;
-  gap: 5rem;
+  gap: 2em;
+}
+
+@media screen and (max-width: 37.5em) {
+  .grid {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+  .grid .col {
+    flex-direction: column;
+  }
 }
 
 @media screen and (min-width: 52em) {
@@ -63,8 +78,27 @@ p {
   gap: 1rem;
 }
 
+@media screen and (min-width: 35em) and (max-width: 52rem) {
+  .player {
+    grid-column: 1/2;
+    grid-row: 1/2;
+  }
+}
+
+.computer {
+  flex-direction: row-reverse;
+}
+
+@media screen and (min-width: 35em) and (max-width: 52rem) {
+  .computer {
+    grid-column: 2/3;
+    grid-row: 1/2;
+  }
+}
+
 .profile {
-  width: 15rem;
+  width: 100%;
+  max-width: 4rem;
 }
 
 .total-score {
@@ -91,10 +125,11 @@ p {
 .items {
   display: flex;
   justify-content: space-evenly;
+  margin-bottom: 1rem;
 }
 
 .items__btn {
-  min-width: 1rem;
+  min-width: 0.75rem;
   max-width: 5rem;
   background: none;
   border: none;
@@ -112,5 +147,12 @@ p {
   flex-flow: column wrap;
   align-items: center;
   text-align: center;
+}
+
+@media screen and (min-width: 35em) and (max-width: 52rem) {
+  .round-stats {
+    grid-column: 1/3;
+    grid-row: 2/3;
+  }
 }
 /*# sourceMappingURL=style.css.map */

@@ -1,3 +1,56 @@
+const roundTitle = document.querySelector('#round-title');
+// Scores
+let playerScore = 0;
+let computerScore = 0;
+let round = 1;
+
+const playerItems = document.querySelectorAll('.items__btn--player');
+const titleChooseItem = document.querySelector('.items-title');
+
+const questionMark = document.querySelector('#question-mark');
+const playerHiddenFrame = document.querySelector('#hidden-frame--player');
+
+const playerScoreImg = document.querySelectorAll('.score--player');
+const computerScoreImg = document.querySelectorAll('.score--computer');
+
+const contRoundWinner = document.querySelector('#round-winner--container');
+const currentRoundWinner = document.querySelector('#round-winner');
+
+let playerSelection;
+const result = document.querySelector('#result');
+
+const btnRock = document.querySelector('#btn--rock');
+const btnWool = document.querySelector('#btn--wool');
+const btnShears = document.querySelector('#btn--shears');
+
+const computerFrame = document.querySelector('#computer-frame');
+
+const btnPlayRound = document.querySelector('#btn--play-round');
+btnPlayRound.disabled = true;
+btnPlayRound.addEventListener('click', () => {
+  try {
+    playRound(playerSelection, computerPlay());
+    btnPlayRound.disabled = true;
+    btnNextRound.disabled = false;
+  } catch (error) {
+    alert(error.message);
+  }
+});
+
+const btnNextRound = document.querySelector('#btn--next-round');
+btnNextRound.disabled = true;
+btnNextRound.addEventListener('click', () => playNextRound());
+
+const btnItems = [btnRock, btnWool, btnShears];
+const items = ['rock', 'wool', 'shears'];
+const playerSelectionImg = document.createElement('img');
+const computerSelectionImg = document.createElement('img');
+
+// Add event listeners to item buttons
+for (let i = 0; i < items.length; i++) {
+  setPlayerItemBtns(btnItems[i], items[i]);
+}
+
 function setPlayerItemBtns(btn, item) {
   btn.addEventListener('click', () => {
     playerSelection = item;
@@ -5,7 +58,6 @@ function setPlayerItemBtns(btn, item) {
     // Enable all item buttons
     playerItems.forEach((playerItem) => (playerItem.disabled = false));
     playerItems.disabled = false;
-    playerItems.textContent = 'boop';
 
     // Disable selected button and add it's image to frame
     btnPlayRound.disabled = false;
@@ -30,6 +82,13 @@ function computerPlay() {
 }
 function setRoundWinner(roundWinner) {
   currentRoundWinner.textContent = `${roundWinner} wins this round!`;
+  let color = '#FFF';
+  if (roundWinner === 'Player') {
+    color = '#38CD8D';
+  } else if (roundWinner === 'Computer') {
+    color = '#AC6CFF';
+  }
+  currentRoundWinner.style.color = color;
 }
 // Write a function that takes the player's and computer's selection as parameters.
 // calculate the winner and return a string that declares the winner.
@@ -37,7 +96,7 @@ function playRound(playerSelection, computerSelection) {
   computerFrame.removeChild(questionMark);
   btnPlayRound.disabled = true;
   btnItems.forEach((item) => (item.style.visibility = 'hidden'));
-
+  titleChooseItem.style.visibility = 'hidden';
   //   Conditional statements to check the winner
   //   If player chooses rock
 
@@ -95,33 +154,34 @@ function playRound(playerSelection, computerSelection) {
     resetGame();
   }
 }
-let round = 1;
 
 function playNextRound() {
   round++;
+  roundTitle.textContent = `Round ${round}`;
+  resetFramesAndButtons();
+}
+
+function resetGame() {
+  btnNextRound.disabled = true;
+  console.log('Resetting game..');
+  resetScore(playerScoreImg);
+  resetScore(computerScoreImg);
+  resetFramesAndButtons();
+  round = 1;
+  roundTitle.textContent = 'Round 1';
+}
+
+function resetFramesAndButtons() {
   playerHiddenFrame.style.display = 'block';
   btnItems.forEach((item) => (item.style.visibility = 'visible'));
+  titleChooseItem.style.visibility = 'visible';
   computerFrame.appendChild(questionMark);
-  roundTitle.textContent = `Round ${round}`;
   result.textContent = '';
   currentRoundWinner.textContent = '';
   playerSelectionImg.src = '';
   computerSelectionImg.src = '';
   btnPlayRound.disabled = true;
   btnNextRound.disabled = true;
-}
-
-function resetGame() {
-  resetScore(playerScoreImg);
-  resetScore(computerScoreImg);
-  playerHiddenFrame.style.display = 'block';
-  btnItems.forEach((item) => (item.style.visibility = 'visible'));
-  result.textContent = '';
-  contRoundWinner.textContent = '';
-  btnPlayRound.disabled = true;
-  playerSelectionImg.src = '';
-  computerSelectionImg.src = '';
-  computerFrame.appendChild(questionMark);
 }
 
 function resetScore(scoreImg) {
@@ -143,55 +203,3 @@ function updateScore() {
     playerScoreImg[i].src = '../images/empty-heart.png';
   }
 }
-
-const roundTitle = document.querySelector('#round-title');
-// Scores
-let playerScore = 0;
-let computerScore = 0;
-
-const playerScoreImg = document.querySelectorAll('.score--player');
-const computerScoreImg = document.querySelectorAll('.score--computer');
-
-const contRoundWinner = document.querySelector('#round-winner--container');
-
-let playerSelection;
-const result = document.querySelector('#result');
-
-const btnRock = document.querySelector('#btn--rock');
-const btnWool = document.querySelector('#btn--wool');
-const btnShears = document.querySelector('#btn--shears');
-
-const currentRoundWinner = document.querySelector('#round-winner');
-
-const computerFrame = document.querySelector('#computer-frame');
-
-const btnPlayRound = document.querySelector('#btn--play-round');
-btnPlayRound.disabled = true;
-btnPlayRound.addEventListener('click', () => {
-  try {
-    playRound(playerSelection, computerPlay());
-    btnPlayRound.disabled = true;
-    btnNextRound.disabled = false;
-  } catch (error) {
-    alert(error.message);
-  }
-});
-
-const btnNextRound = document.querySelector('#btn--next-round');
-btnNextRound.disabled = true;
-btnNextRound.addEventListener('click', () => playNextRound());
-
-const btnItems = [btnRock, btnWool, btnShears];
-const items = ['rock', 'wool', 'shears'];
-const playerSelectionImg = document.createElement('img');
-const computerSelectionImg = document.createElement('img');
-
-// Add event listeners to item buttons
-for (let i = 0; i < items.length; i++) {
-  setPlayerItemBtns(btnItems[i], items[i]);
-}
-
-const playerItems = document.querySelectorAll('.items__btn--player');
-
-const questionMark = document.querySelector('#question-mark');
-const playerHiddenFrame = document.querySelector('#hidden-frame--player');
