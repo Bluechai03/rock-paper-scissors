@@ -120,6 +120,12 @@ p {
   flex-direction: row-reverse;
 }
 
+@media screen and (max-width: 35em) {
+  .computer {
+    margin-top: 4rem;
+  }
+}
+
 @media screen and (min-width: 35em) and (max-width: 52rem) {
   .computer {
     grid-column: 2/3;
