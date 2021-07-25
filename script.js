@@ -225,6 +225,7 @@ function resetUI() {
   result.textContent = '';
   currentRoundWinner.textContent = '';
   toggleBtnItems(false);
+  setInstructions('Choose your item');
   disableAllBtns();
   resetAllFrames();
 }
