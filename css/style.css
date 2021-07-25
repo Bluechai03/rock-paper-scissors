@@ -39,12 +39,22 @@ p {
 }
 
 .btn {
+  background-image: url("../images/background-button.png");
+  background-size: cover;
+  background-position: center;
+  color: #f8f8f8;
+  font-family: 'Overlock SC', cursive;
   padding: 0.125em 1em;
   font-size: 1.5rem;
 }
 
 .btn:hover {
   transform: scale(1.1);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  color: #cacaca;
 }
 
 .grid {
@@ -115,7 +125,7 @@ p {
 }
 
 .total-score img {
-  width: 100%;
+  width: 20%;
 }
 
 .total-score--computer {
