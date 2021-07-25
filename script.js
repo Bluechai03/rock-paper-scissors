@@ -174,7 +174,7 @@ function resetHearts(heartsImg, hearts) {
 function resetAllFrames() {
   const playerFrame = document.querySelector('#player-frame');
   const playerPlaceholder = document.createElement('img');
-  playerPlaceholder.src = 'images/frame.png';
+  playerPlaceholder.src = '../images/frame.png';
 
   playerFrame.textContent = '';
   playerFrame.appendChild(playerPlaceholder);
