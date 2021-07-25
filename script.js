@@ -1,205 +1,223 @@
-const roundTitle = document.querySelector('#round-title');
-// Scores
-let playerScore = 0;
-let computerScore = 0;
-let round = 1;
+let playerHearts = 5,
+  compHearts = 5;
 
-const playerItems = document.querySelectorAll('.items__btn--player');
-const titleChooseItem = document.querySelector('.items-title');
+//TODO reset frames when next round button is clicked
+function game() {
+  let roundCount = 1;
+  getPlayerItem();
 
-const questionMark = document.querySelector('#question-mark');
-const playerHiddenFrame = document.querySelector('#hidden-frame--player');
+  const btnPlayRound = document.querySelector('#btn--play-round');
+  btnPlayRound.disabled = true;
+  btnPlayRound.addEventListener('click', () =>
+    playRound(playerItem, getCompItem())
+  );
 
-const playerScoreImg = document.querySelectorAll('.score--player');
-const computerScoreImg = document.querySelectorAll('.score--computer');
-
-const contRoundWinner = document.querySelector('#round-winner--container');
-const currentRoundWinner = document.querySelector('#round-winner');
-
-let playerSelection;
-const result = document.querySelector('#result');
-
-const btnRock = document.querySelector('#btn--rock');
-const btnWool = document.querySelector('#btn--wool');
-const btnShears = document.querySelector('#btn--shears');
-
-const computerFrame = document.querySelector('#computer-frame');
-
-const btnPlayRound = document.querySelector('#btn--play-round');
-btnPlayRound.disabled = true;
-btnPlayRound.addEventListener('click', () => {
-  try {
-    playRound(playerSelection, computerPlay());
-    btnPlayRound.disabled = true;
-    btnNextRound.disabled = false;
-  } catch (error) {
-    alert(error.message);
-  }
-});
-
-const btnNextRound = document.querySelector('#btn--next-round');
-btnNextRound.disabled = true;
-btnNextRound.addEventListener('click', () => playNextRound());
-
-const btnItems = [btnRock, btnWool, btnShears];
-const items = ['rock', 'wool', 'shears'];
-const playerSelectionImg = document.createElement('img');
-const computerSelectionImg = document.createElement('img');
-
-// Add event listeners to item buttons
-for (let i = 0; i < items.length; i++) {
-  setPlayerItemBtns(btnItems[i], items[i]);
-}
-
-function setPlayerItemBtns(btn, item) {
-  btn.addEventListener('click', () => {
-    playerSelection = item;
-    playerHiddenFrame.style.display = 'none';
-    // Enable all item buttons
-    playerItems.forEach((playerItem) => (playerItem.disabled = false));
-    playerItems.disabled = false;
-
-    // Disable selected button and add it's image to frame
-    btnPlayRound.disabled = false;
-    playerSelectionImg.src = `../images/${item}.png`;
-
-    const playerFrame = document.querySelector('#player-frame');
-    playerFrame.appendChild(playerSelectionImg);
+  const btnNextRound = document.querySelector('#btn--next-round');
+  btnNextRound.disabled = true;
+  btnNextRound.addEventListener('click', () => {
+    playNextRound(++roundCount);
   });
+
+  const playerHeartsImg = document.querySelectorAll('.score--player');
+  playerHeartsImg.forEach((heart) => (heart.src = '../images/heart.png'));
 }
 
-// Write a function that randomly returns rock, Wool, shears as the computer's selection.
-function computerPlay() {
+function playRound(playerItem, compItem) {
+  const btnPlayRound = document.querySelector('#btn--play-round');
+  btnPlayRound.disabled = true;
+
+  const btnNextRound = document.querySelector('#btn--next-round');
+  btnNextRound.disabled = false;
+  console.log(playerItem);
+  console.log(compItem);
+  showCompItem(compItem);
+
+  calcWinner(playerItem, compItem);
+
+  const playerHeartsImg = document.querySelectorAll('.score--player');
+  const compHeartsImg = document.querySelectorAll('.score--computer');
+
+  updateHearts(playerHeartsImg, playerHearts);
+  updateHearts(compHeartsImg, compHearts);
+
+  if (playerHearts <= 0 || compHearts <= 0) {
+    playerHearts <= 0
+      ? alert('Computer wins this game!')
+      : alert('Player wins this game!');
+    roundCount = 1;
+    const roundTitle = document.querySelector('#title--round');
+    roundTitle.textContent = `Round ${roundCount}`;
+    resetAllHearts();
+    resetUI();
+  }
+}
+
+function playNextRound(roundCount) {
+  const roundTitle = document.querySelector('#title--round');
+  roundTitle.textContent = `Round ${roundCount}`;
+  resetUI();
+}
+
+function getPlayerItem() {
+  const btnRock = document.querySelector('#btn--rock');
+  const btnWool = document.querySelector('#btn--wool');
+  const btnShears = document.querySelector('#btn--shears');
+  const btnItems = [btnRock, btnWool, btnShears];
+  const items = ['rock', 'wool', 'shears'];
+  const framePlayer = document.querySelector('#player-frame');
+
+  // Add event listeners to item buttons
+  for (let i = 0; i < items.length; i++) {
+    btnItems[i].addEventListener('click', () => {
+      playerItem = items[i];
+      showItem(framePlayer, items[i]);
+
+      const btnPlayRound = document.querySelector('#btn--play-round');
+      btnPlayRound.disabled = false;
+    });
+  }
+}
+function showPlayerItem(frame, item) {
+  const imgPlayerItem = document.createElement('img');
+  frame.style.display = 'none';
+  imgPlayerItem.src = `../images/${item}.png`;
+  const playerFrame = document.querySelector('#player-frame');
+  playerFrame.textContent = ''; // removes any child node
+  playerFrame.appendChild(imgPlayerItem);
+}
+
+function getCompItem() {
   // Return rock, Wool or shears
   const items = ['rock', 'wool', 'shears'];
   let item = items[Math.floor(Math.random() * items.length)];
-  computerSelectionImg.src = `../images/${item}.png`;
-  console.log(`../images/${item}.png`);
-
-  computerFrame.appendChild(computerSelectionImg);
-
   return item;
 }
-function setRoundWinner(roundWinner) {
-  currentRoundWinner.textContent = `${roundWinner} wins this round!`;
+
+function showCompItem(item) {
+  const frameComp = document.querySelector('#computer-frame');
+  const placeholderComp = document.querySelector('#placeholder-computer');
+  showItem(frameComp, item);
+}
+
+function showItem(frame, item) {
+  const imgItem = document.createElement('img');
+  imgItem.src = `/images/${item}.png`;
+  frame.textContent = '';
+  frame.appendChild(imgItem);
+}
+
+function calcWinner(playerItem, compItem) {
+  const result = document.querySelector('#result');
+
+  // If player chooses rock
+  if (playerItem.toUpperCase() === 'ROCK') {
+    if (compItem.toUpperCase() === 'SHEARS') {
+      result.textContent = 'Rock beats shears';
+      setRoundWinner('Player');
+    } else if (compItem.toUpperCase() === 'WOOL') {
+      result.textContent = 'Wool beats rock';
+      setRoundWinner('Computer');
+    }
+  }
+  // If player chooses wool
+  if (playerItem.toUpperCase() === 'WOOL') {
+    if (compItem.toUpperCase() === 'ROCK') {
+      result.textContent = 'Wool beats rock';
+      setRoundWinner('Player');
+    } else if (compItem.toUpperCase() === 'SHEARS') {
+      result.textContent = 'Shears beat wool';
+      setRoundWinner('Computer');
+    }
+  }
+
+  // If player chooses shears
+  if (playerItem.toUpperCase() === 'SHEARS') {
+    if (compItem.toUpperCase() === 'WOOL') {
+      result.textContent = 'Shears beat wool';
+      setRoundWinner('Player');
+    } else if (compItem.toUpperCase() === 'ROCK') {
+      result.textContent = 'Rock beats shears';
+      setRoundWinner('Computer');
+    }
+  }
+
+  // If player and comp choose same item
+  if (playerItem.toUpperCase() === compItem.toUpperCase()) {
+    result.textContent = '';
+    setRoundWinner();
+  }
+}
+
+function setRoundWinner(roundWinner = 'Tie') {
+  const currentRoundWinner = document.querySelector('#round-winner');
   let color = '#FFF';
-  if (roundWinner === 'Player') {
-    color = '#38CD8D';
-  } else if (roundWinner === 'Computer') {
-    color = '#AC6CFF';
+  if (roundWinner === 'Tie') {
+    currentRoundWinner.textContent = `It's a tie!`;
+  } else {
+    currentRoundWinner.textContent = `${roundWinner} wins this round!`;
+    if (roundWinner === 'Player') {
+      color = '#38CD8D';
+      compHearts--;
+    } else if (roundWinner === 'Computer') {
+      color = '#AC6CFF';
+      playerHearts--;
+    }
   }
   currentRoundWinner.style.color = color;
 }
-// Write a function that takes the player's and computer's selection as parameters.
-// calculate the winner and return a string that declares the winner.
-function playRound(playerSelection, computerSelection) {
-  computerFrame.removeChild(questionMark);
-  btnPlayRound.disabled = true;
-  btnItems.forEach((item) => (item.style.visibility = 'hidden'));
-  titleChooseItem.style.visibility = 'hidden';
-  //   Conditional statements to check the winner
-  //   If player chooses rock
 
-  if (playerSelection.toUpperCase() === 'ROCK') {
-    if (computerSelection.toUpperCase() === 'SHEARS') {
-      result.textContent = 'Rock beats shears';
-      setRoundWinner('Player');
-      playerScore++;
-    } else if (computerSelection.toUpperCase() === 'WOOL') {
-      result.textContent = 'Wool beats rock';
-      setRoundWinner('Computer');
-      computerScore++;
-    }
-  }
-
-  //   If player chooses Wool
-  else if (playerSelection.toUpperCase() === 'WOOL') {
-    if (computerSelection.toUpperCase() === 'ROCK') {
-      result.textContent = 'Wool beats rock';
-      setRoundWinner('Player');
-      playerScore++;
-    } else if (computerSelection.toUpperCase() === 'SHEARS') {
-      result.textContent = 'Shears beat wool';
-      setRoundWinner('Computer');
-      computerScore++;
-    }
-  }
-
-  //   If player chooses shears
-  else if (playerSelection.toUpperCase() === 'SHEARS') {
-    if (computerSelection.toUpperCase() === 'WOOL') {
-      result.textContent = 'Shears beat wool';
-      setRoundWinner('Player');
-      playerScore++;
-    } else if (computerSelection.toUpperCase() === 'ROCK') {
-      result.textContent = 'Rock beats shears';
-      setRoundWinner('Computer');
-      computerScore++;
-    }
-  }
-
-  //   If player and computer choose the same shape
-  if (playerSelection.toUpperCase() === computerSelection.toUpperCase()) {
-    result.textContent = '';
-    currentRoundWinner.textContent = "It's a tie!";
-  }
-
-  updateScore();
-
-  // End round once any score reaches 5
-  if (playerScore >= 5 || computerScore >= 5) {
-    playerScore >= 5
-      ? alert('Player wins this game!')
-      : alert('Computer wins this game!');
-    resetGame();
-  }
+function resetHearts(heartsImg, hearts) {
+  heartsImg.forEach((score) => (score.src = '../images/heart.png'));
+  console.log(hearts);
 }
 
-function playNextRound() {
-  round++;
-  roundTitle.textContent = `Round ${round}`;
-  resetFramesAndButtons();
+function resetAllFrames() {
+  const playerFrame = document.querySelector('#player-frame');
+  const playerPlaceholder = document.createElement('img');
+  playerPlaceholder.src = '../images/frame.png';
+
+  playerFrame.textContent = '';
+  playerFrame.appendChild(playerPlaceholder);
+
+  const compFrame = document.querySelector('#computer-frame');
+  const compPlaceholder = document.createElement('img');
+  compPlaceholder.src = '../images/question-mark.png';
+
+  compFrame.textContent = '';
+  compFrame.appendChild(compPlaceholder);
 }
 
-function resetGame() {
-  btnNextRound.disabled = true;
-  console.log('Resetting game..');
-  resetScore(playerScoreImg);
-  resetScore(computerScoreImg);
-  resetFramesAndButtons();
-  round = 1;
-  roundTitle.textContent = 'Round 1';
-}
-
-function resetFramesAndButtons() {
-  playerHiddenFrame.style.display = 'block';
-  btnItems.forEach((item) => (item.style.visibility = 'visible'));
-  titleChooseItem.style.visibility = 'visible';
-  computerFrame.appendChild(questionMark);
+function resetUI() {
+  const result = document.querySelector('#result');
+  const currentRoundWinner = document.querySelector('#round-winner');
   result.textContent = '';
   currentRoundWinner.textContent = '';
-  playerSelectionImg.src = '';
-  computerSelectionImg.src = '';
+  disableAllBtns();
+  resetAllFrames();
+}
+
+function disableAllBtns() {
+  const btnPlayRound = document.querySelector('#btn--play-round');
   btnPlayRound.disabled = true;
+  const btnNextRound = document.querySelector('#btn--next-round');
   btnNextRound.disabled = true;
 }
 
-function resetScore(scoreImg) {
-  playerScore = 0;
-  computerScore = 0;
-  scoreImg.forEach((score) => (score.src = '../images/heart.png'));
-}
-
-function updateScore() {
-  console.log('update score');
-  // Update score for computer
-  for (let i = 0; i < playerScore; i++) {
-    console.log(i);
-    computerScoreImg[i].src = '../images/empty-heart.png';
-  }
-
-  // Update score for player
-  for (let i = 0; i < computerScore; i++) {
-    playerScoreImg[i].src = '../images/empty-heart.png';
+function updateHearts(heartsImg, hearts) {
+  console.log(hearts);
+  for (let i = 4; i >= hearts; i--) {
+    heartsImg.item(i).src = '../images/empty-heart.png';
   }
 }
+
+function resetAllHearts() {
+  console.log('Resetting');
+  playerHearts = 5;
+  compHearts = 5;
+  const playerHeartsImg = document.querySelectorAll('.score--player');
+  const compHeartsImg = document.querySelectorAll('.score--computer');
+  resetHearts(playerHeartsImg, playerHearts);
+  resetHearts(compHeartsImg, compHearts);
+}
+
+game();

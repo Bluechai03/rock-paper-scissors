@@ -57,6 +57,8 @@ p {
 
 @media screen and (max-width: 37.5em) {
   .grid {
+    margin: 0 auto;
+    width: 80%;
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -101,6 +103,12 @@ p {
   max-width: 4rem;
 }
 
+@media screen and (max-width: 37.5em) {
+  .profile {
+    display: none;
+  }
+}
+
 .total-score {
   justify-content: center;
   align-self: center;
@@ -110,7 +118,7 @@ p {
   width: 100%;
 }
 
-.total-score--player {
+.total-score--computer {
   transform: scaleX(-1);
 }
 

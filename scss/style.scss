@@ -53,6 +53,8 @@ p {
   place-items: center;
   align-items: start;
   @media screen and (max-width: 37.5em) {
+    margin: 0 auto;
+    width: 80%;
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -90,6 +92,9 @@ p {
 .profile {
   width: 100%;
   max-width: 4rem;
+  @media screen and (max-width: 37.5em) {
+    display: none;
+  }
 }
 
 .total-score {
@@ -99,7 +104,7 @@ p {
   img {
     width: 100%;
   }
-  &--player {
+  &--computer {
     transform: scaleX(-1);
   }
 }
