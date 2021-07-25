@@ -14,6 +14,7 @@ function game() {
 
   const btnNextRound = document.querySelector('#btn--next-round');
   btnNextRound.disabled = true;
+  btnNextRound.style.display = 'none';
   btnNextRound.addEventListener('click', () => {
     playNextRound(++roundCount);
   });
@@ -39,8 +40,10 @@ function playRound(playerItem, compItem) {
   toggleBtnItems(true);
   const btnPlayRound = document.querySelector('#btn--play-round');
   btnPlayRound.disabled = true;
+  btnPlayRound.style.display = 'none';
 
   const btnNextRound = document.querySelector('#btn--next-round');
+  btnNextRound.style.display = 'flex';
   btnNextRound.disabled = false;
   console.log(playerItem);
   console.log(compItem);
@@ -209,6 +212,14 @@ function resetAllFrames() {
 }
 
 function resetUI() {
+  const btnPlayRound = document.querySelector('#btn--play-round');
+  btnPlayRound.disabled = true;
+  btnPlayRound.style.display = 'flex';
+
+  const btnNextRound = document.querySelector('#btn--next-round');
+  btnNextRound.disabled = true;
+  btnNextRound.style.display = 'none';
+
   const result = document.querySelector('#result');
   const currentRoundWinner = document.querySelector('#round-winner');
   result.textContent = '';
