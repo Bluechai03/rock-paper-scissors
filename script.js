@@ -224,6 +224,7 @@ function resetUI() {
   const currentRoundWinner = document.querySelector('#round-winner');
   result.textContent = '';
   currentRoundWinner.textContent = '';
+  toggleBtnItems(false);
   disableAllBtns();
   resetAllFrames();
 }
