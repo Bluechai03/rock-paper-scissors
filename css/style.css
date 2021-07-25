@@ -43,6 +43,7 @@ p {
   background-size: cover;
   background-position: center;
   color: #f8f8f8;
+  border: none;
   font-family: 'Overlock SC', cursive;
   padding: 0.125em 1em;
   font-size: 1.5rem;
@@ -54,7 +55,7 @@ p {
 
 .btn:disabled {
   opacity: 0.5;
-  color: #cacaca;
+  color: gray;
 }
 
 .grid {
