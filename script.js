@@ -22,7 +22,21 @@ function game() {
   playerHeartsImg.forEach((heart) => (heart.src = '../images/heart.png'));
 }
 
+function toggleBtnItems(areBtnsActive) {
+  const btnRock = document.querySelector('#btn--rock');
+  const btnWool = document.querySelector('#btn--wool');
+  const btnShears = document.querySelector('#btn--shears');
+  const btnItems = [btnRock, btnWool, btnShears];
+  btnItems.forEach((btnItem) =>
+    areBtnsActive
+      ? (btnItem.style.visibility = 'hidden')
+      : (btnItem.style.visibility = 'visible')
+  );
+}
+
 function playRound(playerItem, compItem) {
+  setInstructions(`Press the 'Next Round' button`);
+  toggleBtnItems(true);
   const btnPlayRound = document.querySelector('#btn--play-round');
   btnPlayRound.disabled = true;
 
@@ -55,7 +69,14 @@ function playRound(playerItem, compItem) {
 function playNextRound(roundCount) {
   const roundTitle = document.querySelector('#title--round');
   roundTitle.textContent = `Round ${roundCount}`;
+  toggleBtnItems(false);
   resetUI();
+  setInstructions(`Choose your item`);
+}
+
+function setInstructions(text) {
+  const textInstructions = document.querySelector('#instructions');
+  textInstructions.textContent = text;
 }
 
 function getPlayerItem() {
@@ -69,9 +90,9 @@ function getPlayerItem() {
   // Add event listeners to item buttons
   for (let i = 0; i < items.length; i++) {
     btnItems[i].addEventListener('click', () => {
+      setInstructions(`Press the 'Play Round' button`);
       playerItem = items[i];
       showItem(framePlayer, items[i]);
-
       const btnPlayRound = document.querySelector('#btn--play-round');
       btnPlayRound.disabled = false;
     });
