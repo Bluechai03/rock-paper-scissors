@@ -26,11 +26,12 @@ body {
 }
 
 a {
-  color: #ac6cff;
+  text-decoration: none;
+  color: #66ebb1;
 }
 
 a:hover {
-  color: #38cd8d;
+  color: #ac6cff;
 }
 
 img {
