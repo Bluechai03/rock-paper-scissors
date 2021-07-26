@@ -8,11 +8,11 @@
 
 <div align="center">
   <h3>
-    <a href="https://github.com/Bluechai03/rock-paper-scissors">
+    <a href="https://rockwoolshears.netlify.app/">
       Demo
     </a>
     <span> | </span>
-    <a href="https://rockwoolshears.netlify.app/">
+    <a href="https://github.com/Bluechai03/rock-paper-scissors">
       Solution
     </a>
   </h3>
