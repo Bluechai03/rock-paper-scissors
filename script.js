@@ -1,27 +1,5 @@
-let playerHearts = 5,
-  compHearts = 5;
-
-//TODO reset frames when next round button is clicked
-function game() {
-  let roundCount = 1;
-  getPlayerItem();
-
-  const btnPlayRound = document.querySelector('#btn--play-round');
-  btnPlayRound.disabled = true;
-  btnPlayRound.addEventListener('click', () =>
-    playRound(playerItem, getCompItem())
-  );
-
-  const btnNextRound = document.querySelector('#btn--next-round');
-  btnNextRound.disabled = true;
-  btnNextRound.style.display = 'none';
-  btnNextRound.addEventListener('click', () => {
-    playNextRound(++roundCount);
-  });
-
-  const playerHeartsImg = document.querySelectorAll('.score--player');
-  playerHeartsImg.forEach((heart) => (heart.src = '../images/heart.png'));
-}
+let playerHearts = 5;
+let compHearts = 5;
 
 function toggleBtnItems(areBtnsActive) {
   const btnRock = document.querySelector('#btn--rock');
@@ -252,6 +230,27 @@ function resetAllHearts() {
   const compHeartsImg = document.querySelectorAll('.score--computer');
   resetHearts(playerHeartsImg, playerHearts);
   resetHearts(compHeartsImg, compHearts);
+}
+
+function game() {
+  let roundCount = 1;
+  getPlayerItem();
+
+  const btnPlayRound = document.querySelector('#btn--play-round');
+  btnPlayRound.disabled = true;
+  btnPlayRound.addEventListener('click', () =>
+    playRound(playerItem, getCompItem())
+  );
+
+  const btnNextRound = document.querySelector('#btn--next-round');
+  btnNextRound.disabled = true;
+  btnNextRound.style.display = 'none';
+  btnNextRound.addEventListener('click', () => {
+    playNextRound(++roundCount);
+  });
+
+  const playerHeartsImg = document.querySelectorAll('.score--player');
+  playerHeartsImg.forEach((heart) => (heart.src = '../images/heart.png'));
 }
 
 game();
